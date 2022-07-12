@@ -153,6 +153,11 @@ static __inline unsigned long long __DOUBLE_BITS(double __f)
 	sizeof(x) == sizeof(double) ? (__DOUBLE_BITS(x) & -1ULL>>1) < 0x7ffULL<<52 : \
 	__fpclassify(x) > FP_INFINITE)
 
+#define signbit(x) ( \
+	sizeof(x) == sizeof(float) ? (int)(__FLOAT_BITS(x) >> 31) : \
+	sizeof(x) == sizeof(double) ? (int)(__DOUBLE_BITS(x) >> 63) : \
+	(int)(__DOUBLE_BITS(x) >> 63))
+
 #define M_E						2.7182818284590452354	/* e */
 #define M_LOG2E					1.4426950408889634074	/* log_2 e */
 #define M_LOG10E				0.43429448190325182765	/* log_10 e */
@@ -201,6 +206,10 @@ double	fdim(double, double);
 float	fdimf(float, float);
 double	floor(double);
 float	floorf(float);
+double	fmax(double x, double y);
+float	fmaxf(float x, float y);
+double	fmin(double x, double y);
+float	fminf(float x, float y);
 double	fmod(double, double);
 float	fmodf(float, float);
 double	frexp(double, int *);
